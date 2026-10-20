@@ -74,7 +74,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .widget .mood i{display:block;font-style:normal;font-size:20px}
 .apps{margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 6px;padding-bottom:10px}
 .app{display:flex;flex-direction:column;align-items:center;gap:5px;color:#fff;font-size:11px;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.6)}
-.app .ic{width:60px;height:60px;border-radius:17px;display:grid;place-items:center;font-size:28px;box-shadow:0 4px 12px rgba(0,0,0,.25);border:2px solid rgba(255,255,255,.7);transition:transform .15s;position:relative}
+.app .ic{width:60px;height:60px;border-radius:16px;display:grid;place-items:center;color:#fff;background:var(--g);box-shadow:0 4px 12px rgba(0,0,0,.22),inset 0 0 0 1px rgba(255,255,255,.35);transition:transform .15s;position:relative;overflow:visible}
+.app .ic::before{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,0) 48%);pointer-events:none}
+.app .ic svg{width:34px;height:34px;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.18));position:relative}
+.app .ic.dk{color:#3a2a3a}.app .ic.pk{color:#ffc8e8}
 .app:active .ic,.app:hover .ic{transform:scale(1.08)}
 .app .bd{position:absolute;top:-5px;right:-5px;min-width:20px;height:20px;border-radius:10px;background:#ff4d6d;color:#fff;font-size:11px;display:grid;place-items:center;padding:0 5px;border:2px solid #fff;text-shadow:none}
 .dock{display:flex;justify-content:space-around;background:rgba(255,245,251,.35);backdrop-filter:blur(12px);border-radius:26px;padding:10px 6px;border:1.5px solid rgba(255,255,255,.6)}
@@ -234,6 +237,19 @@ details.note p+p{margin-top:6px}
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-bow" viewBox="0 0 32 32"><path fill="currentColor" d="M16 13.5c-2.6-3.7-6.6-6.3-9.6-5.6C4 8.5 3 11 3 16s1 7.5 3.4 8.1c3 .7 7-1.9 9.6-5.6 2.6 3.7 6.6 6.3 9.6 5.6C28 23.5 29 21 29 16s-1-7.5-3.4-8.1c-3-.7-7 1.9-9.6 5.6z" opacity=".95"/><circle cx="16" cy="16" r="3.4" fill="currentColor"/><path d="M14 18.5 11 27M18 18.5l3 8.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+<symbol id="i-note" viewBox="0 0 32 32"><rect x="7" y="5" width="18" height="23" rx="3" fill="currentColor"/><path d="M11 12h10M11 16.5h10M11 21h6" stroke="#f0b51f" stroke-width="2" stroke-linecap="round"/><path d="M11 3v4M16 3v4M21 3v4" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 32 32"><path fill="currentColor" d="M16 27.5S4 20.4 4 11.9C4 8.3 6.7 5.5 10.1 5.5c2.4 0 4.6 1.4 5.9 3.5 1.3-2.1 3.5-3.5 5.9-3.5 3.4 0 6.1 2.8 6.1 6.4 0 8.5-12 15.6-12 15.6z"/><path d="M6 15h5l2-4 3 8 2.5-5H26" fill="none" stroke="#8c6cd0" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-photo" viewBox="0 0 32 32"><rect x="4" y="7" width="24" height="19" rx="4" fill="currentColor"/><circle cx="11.5" cy="13" r="2.6" fill="#ffb3d6"/><path d="M6.5 24l6.5-7 4.5 4.5 3.5-3.5 5 6z" fill="#a98ce0"/></symbol>
+<symbol id="i-wave" viewBox="0 0 32 32"><path fill="currentColor" d="M8.5 16.5a7.5 7.5 0 0 1 15 0z" opacity=".9"/><path d="M16 4.5v2.5M7 8.5l1.7 1.7M25 8.5l-1.7 1.7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M3 20.5c3 0 3-2.5 6.5-2.5S12.5 20.5 16 20.5s3.5-2.5 6.5-2.5S26 20.5 29 20.5M5 26.5c2.8 0 2.8-2.3 5.6-2.3s2.8 2.3 5.4 2.3 2.8-2.3 5.6-2.3 2.8 2.3 5.4 2.3" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+<symbol id="i-gear" viewBox="0 0 32 32"><path fill="currentColor" fill-rule="evenodd" d="M13.6 3h4.8l.7 3.4c1 .3 1.9.7 2.7 1.3l3-1.8 3.3 3.4-1.8 2.9c.6.8 1 1.8 1.3 2.8L31 15.6v4.8l-3.4.7c-.3 1-.7 1.9-1.3 2.7l1.8 3-3.4 3.3-2.9-1.8c-.8.6-1.8 1-2.8 1.3L18.4 33h-4.8l-.7-3.4c-1-.3-1.9-.7-2.7-1.3l-3 1.8L3.9 26.7l1.8-2.9c-.6-.8-1-1.8-1.3-2.8L1 20.4v-4.8l3.4-.7c.3-1 .7-1.9 1.3-2.7l-1.8-3 3.4-3.3 2.9 1.8c.8-.6 1.8-1 2.8-1.3zM16 23a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" transform="translate(0 -2) scale(1 1)"/></symbol>
+<symbol id="i-letter" viewBox="0 0 32 32"><rect x="3.5" y="7.5" width="25" height="18" rx="3.5" fill="currentColor"/><path d="M5 10l11 8 11-8" fill="none" stroke="#ff7ab8" stroke-width="2" stroke-linejoin="round"/><path fill="#ff5e9e" d="M16 24.5s-4.5-2.6-4.5-5.6c0-1.3 1-2.3 2.3-2.3.9 0 1.7.5 2.2 1.3.5-.8 1.3-1.3 2.2-1.3 1.3 0 2.3 1 2.3 2.3 0 3-4.5 5.6-4.5 5.6z"/></symbol>
+<symbol id="i-chat" viewBox="0 0 32 32"><path fill="currentColor" d="M16 5C9 5 3.5 9.6 3.5 15.3c0 3.2 1.8 6 4.6 7.9-.2 1.7-1 3.4-2.4 4.6 2.8-.1 5.2-1.1 6.8-2.6 1.1.3 2.3.4 3.5.4 7 0 12.5-4.6 12.5-10.3S23 5 16 5z"/><circle cx="10.5" cy="15.5" r="1.8" fill="#ff7ab8"/><circle cx="16" cy="15.5" r="1.8" fill="#ff7ab8"/><circle cx="21.5" cy="15.5" r="1.8" fill="#ff7ab8"/></symbol>
+<symbol id="i-hash" viewBox="0 0 32 32"><path d="M12.5 5 10 27M22 5l-2.5 22M5.5 12h22M4.5 20h22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><circle cx="25.5" cy="6.5" r="3" fill="#ff7ab8"/></symbol>
+<symbol id="i-cam" viewBox="0 0 32 32"><path fill="currentColor" d="M11.5 6h9l2 3.5H26a3 3 0 0 1 3 3V24a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V12.5a3 3 0 0 1 3-3h3.5z"/><circle cx="16" cy="18" r="5.6" fill="#fff"/><circle cx="16" cy="18" r="3.6" fill="currentColor"/><circle cx="24.5" cy="13" r="1.3" fill="#ff7ab8"/></symbol>
+<symbol id="i-phones" viewBox="0 0 32 32"><path d="M6 19v-3a10 10 0 0 1 20 0v3" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><rect x="4" y="17.5" width="6.5" height="10" rx="3" fill="currentColor"/><rect x="21.5" y="17.5" width="6.5" height="10" rx="3" fill="currentColor"/></symbol>
+</defs></svg>
 <div class="stage">
   <div class="side">
     <h1>Haruno<br>Miyu ♥</h1>
@@ -252,19 +268,19 @@ details.note p+p{margin-top:6px}
     <div id="home">
       <div class="widget"><img src="assets/icon/smiling.webp" alt=""><div><b>Miyu ♥</b><span data-t="wTag">너무 깊게 사랑하는 소녀</span></div><div class="mood"><i>🥺</i><span data-t="wMood">답장 기다리는 중</span></div></div>
       <div class="apps">
-        <button class="app" data-app="profile"><span class="ic" style="background:linear-gradient(135deg,#ffc8e8,#e8c8ff)">🎀</span><span data-t="a1">프로필</span></button>
-        <button class="app" data-app="notes"><span class="ic" style="background:#fff3b0">📝</span><span data-t="a2">메모</span></button>
-        <button class="app" data-app="st"><span class="ic" style="background:#b8a1e0">💜</span><span data-t="a3">상태창</span></button>
-        <button class="app" data-app="alb"><span class="ic" style="background:linear-gradient(135deg,#fff,#e8c8ff)">🖼️</span><span data-t="a4">앨범</span></button>
-        <button class="app" data-app="story"><span class="ic" style="background:#c8e8ff">🌊</span><span data-t="a5">첫 만남</span></button>
-        <button class="app" data-app="set"><span class="ic" style="background:#d9d9e0">⚙️</span><span data-t="a6">설정</span></button>
-        <button class="app" data-app="meet"><span class="ic" style="background:#ff9ccf">💌</span><span data-t="a7">만나러 가기</span></button>
+        <button class="app" data-app="profile"><span class="ic" style="--g:linear-gradient(160deg,#ffc2e4,#c9a6ff)"><svg><use href="#i-bow"/></svg></span><span data-t="a1">프로필</span></button>
+        <button class="app" data-app="notes"><span class="ic" style="--g:linear-gradient(160deg,#ffe58a,#ffc23d)"><svg><use href="#i-note"/></svg></span><span data-t="a2">메모</span></button>
+        <button class="app" data-app="st"><span class="ic" style="--g:linear-gradient(160deg,#c6b2ff,#7c5fb8)"><svg><use href="#i-pulse"/></svg></span><span data-t="a3">상태창</span></button>
+        <button class="app" data-app="alb"><span class="ic" style="--g:linear-gradient(160deg,#ffd6ec,#b9a2f5)"><svg><use href="#i-photo"/></svg></span><span data-t="a4">앨범</span></button>
+        <button class="app" data-app="story"><span class="ic" style="--g:linear-gradient(160deg,#a6e1ff,#4a9be0)"><svg><use href="#i-wave"/></svg></span><span data-t="a5">첫 만남</span></button>
+        <button class="app" data-app="set"><span class="ic" style="--g:linear-gradient(160deg,#d6d6df,#8e8e9e)"><svg><use href="#i-gear"/></svg></span><span data-t="a6">설정</span></button>
+        <button class="app" data-app="meet"><span class="ic" style="--g:linear-gradient(160deg,#ffb8dc,#ff5e9e)"><svg><use href="#i-letter"/></svg></span><span data-t="a7">만나러 가기</span></button>
       </div>
       <div class="dock">
-        <button class="app" data-app="msg"><span class="ic" style="background:#ff9ccf">💬<i class="bd">3</i></span><span>msg</span></button>
-        <button class="app" data-app="tw"><span class="ic" style="background:#15101c">🐦<i class="bd">1</i></span><span>tw</span></button>
-        <button class="app" data-app="alb"><span class="ic" style="background:#fff">📷</span><span>cam</span></button>
-        <button class="app" data-app="set"><span class="ic" style="background:#3a2a3a">🎧</span><span>bgm</span></button>
+        <button class="app" data-app="msg"><span class="ic" style="--g:linear-gradient(160deg,#ffc8e6,#ff8cc6)"><svg><use href="#i-chat"/></svg><i class="bd">3</i></span><span>msg</span></button>
+        <button class="app" data-app="tw"><span class="ic" style="--g:linear-gradient(160deg,#3a2c46,#120c18)"><svg><use href="#i-hash"/></svg><i class="bd">1</i></span><span>tw</span></button>
+        <button class="app" data-app="alb"><span class="ic dk" style="--g:linear-gradient(160deg,#ffffff,#e4dbea)"><svg><use href="#i-cam"/></svg></span><span>cam</span></button>
+        <button class="app" data-app="set"><span class="ic pk" style="--g:linear-gradient(160deg,#4a3650,#1b1320)"><svg><use href="#i-phones"/></svg></span><span>bgm</span></button>
       </div>
     </div>
 
